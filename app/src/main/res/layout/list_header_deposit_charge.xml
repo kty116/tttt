@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="충전하기"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.thebay.tb.view.CustomLoginEditText
+        android:id="@+id/money_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="예치금액(원)"
+        app:name="id" />
+
+    <com.thebay.tb.view.CustomLoginEditText
+        android:id="@+id/name_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="입금자명"
+        app:name="id" />
+
+    <com.thebay.tb.view.CustomLoginEditText
+        android:id="@+id/date_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="입금일"
+        app:name="id" />
+
+    <TextView
+        android:id="@+id/account_number"
+        android:hint="입금계좌번호"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/confirm_button"
+        android:layout_gravity="right"
+        android:background="@color/red"
+        android:text="신청"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -19,16 +19,16 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:background="#00ffffff"
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_margin="15dp"
+                android:background="#00ffffff"
                 android:src="@drawable/ic_login" />
 
             <TextView
-                android:id="@+id/user_id"
+                android:id="@+id/user_id_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -37,13 +37,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:textSize="@dimen/small_text_size"
-                android:id="@+id/user_grade"
+                android:id="@+id/user_grade_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="VIP 등급" />
+                android:text="VIP 등급"
+                android:textSize="@dimen/small_text_size" />
         </LinearLayout>
     </LinearLayout>
 
@@ -55,7 +55,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/cash_button"
+            android:id="@+id/deposit_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -85,6 +85,7 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/deposit_text"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_gravity="center|bottom"
@@ -126,6 +127,7 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/settlement_count_text"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_gravity="center|bottom"
@@ -167,6 +169,7 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/coupon_possession_text"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_gravity="center|bottom"

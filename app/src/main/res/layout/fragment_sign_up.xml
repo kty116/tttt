@@ -1,0 +1,185 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="com.thebay.tb.activity.MainActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<EditText-->
+        <!--android:inputType="textVisiblePassword"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.thebay.tb.view.CustomLoginEditText
+                    android:id="@+id/id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    app:hint="아이디"
+                    app:name="id" />
+
+                <Button
+                    android:id="@+id/id_duplication_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="중복체크"
+                    android:textSize="@dimen/small_text_size" />
+            </LinearLayout>
+
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="비밀번호"
+                app:name="password" />
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="비밀번호 확인"
+                app:name="password_confirm" />
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="이름"
+                app:name="name" />
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/english_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="영문이름"
+                app:name="english_name" />
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/nic_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="닉네임"
+                app:name="nic_name" />
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/birth_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="생년월일(YYYYMMDD)"
+                app:name="nic_name" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.thebay.tb.view.CustomLoginEditText
+                    android:id="@+id/phone_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    app:hint="핸드폰 (-) 없이 입력"
+                    app:name="nic_name" />
+
+                <Button
+                    android:id="@+id/phone_certification_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="인증하기"
+                    android:textSize="@dimen/small_text_size" />
+            </LinearLayout>
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/home_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="전화번호 (-) 없이 입력"
+                app:name="nic_name" />
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/login_nic_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="이메일"
+                app:name="nic_name" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/email_check_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="이메일 수신" />
+
+                <CheckBox
+                    android:id="@+id/sms_check_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="SMS 수신" />
+
+            </LinearLayout>
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/recommendation_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="추천인"
+                app:name="recommendation_id" />
+
+            <com.thebay.tb.view.CustomLoginEditText
+                android:id="@+id/joining_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="가입경로"
+                app:name="joining_path" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cancel_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="취소" />
+
+                <Button
+                    android:id="@+id/confirm_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="확인" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

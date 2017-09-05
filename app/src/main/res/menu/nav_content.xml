@@ -5,26 +5,26 @@
     <item android:title="마이페이지">
         <menu>
             <item
-                android:icon="@drawable/bottom_bt01"
-                android:checkable="true"
                 android:id="@+id/info"
+                android:checkable="true"
+                android:icon="@drawable/bottom_bt01"
                 android:title="나의정보" />
             <item
-                android:icon="@drawable/bottom_bt01"
-                android:checkable="true"
                 android:id="@+id/order_list"
+                android:checkable="true"
+                android:icon="@drawable/bottom_bt01"
                 android:title="주문내역" />
 
             <item
-                android:icon="@drawable/bottom_bt01"
-                android:checkable="true"
                 android:id="@+id/message"
+                android:checkable="true"
+                android:icon="@drawable/bottom_bt01"
                 android:title="쪽지함" />
 
             <item
-                android:icon="@drawable/bottom_bt01"
-                android:checkable="true"
                 android:id="@+id/coupon"
+                android:checkable="true"
+                android:icon="@drawable/bottom_bt01"
                 android:title="쿠폰함" />
 
         </menu>
@@ -32,22 +32,22 @@
     <item android:title="고객센터">
         <menu>
             <item
-                android:icon="@drawable/bottom_bt01"
-                android:checkable="true"
                 android:id="@+id/notice"
+                android:checkable="true"
+                android:icon="@drawable/bottom_bt01"
                 android:title="공지" />
             <item
-                android:icon="@drawable/bottom_bt01"
-                android:checkable="true"
                 android:id="@+id/inquiry"
+                android:checkable="true"
+                android:icon="@drawable/bottom_bt01"
                 android:title="1:1문의" />
 
         </menu>
     </item>
     <item
-        android:icon="@drawable/bottom_bt01"
-        android:checkable="true"
         android:id="@+id/setting"
+        android:checkable="true"
+        android:icon="@drawable/bottom_bt01"
         android:title="설정" />
 
 </menu>

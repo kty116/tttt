@@ -5,4 +5,20 @@
         <attr name="key" format="reference|string"/>
         <attr name="nullvalidata" format="reference|boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomLoginEditText">
+        <attr name="null_check" format="boolean"/>
+        <attr name="name" format="string"/>
+        <attr name="hint" format="string"/>
+        <attr name="inputType" format="string"/>
+    </declare-styleable>
+
+
+    <!--<declare-styleable name="LoginButton">-->
+
+        <!--<attr name="text" format="reference|string" />-->
+        <!--<attr name="textColor" format="reference|integer" />-->
+    <!--</declare-styleable>-->
+
+
 </resources>

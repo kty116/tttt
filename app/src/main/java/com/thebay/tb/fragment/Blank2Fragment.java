@@ -31,7 +31,7 @@ public class Blank2Fragment extends Fragment {
     DefaultCustomView idView;
     @BindView(R.id.pass)
     DefaultCustomView passView;
-    
+
     private Unbinder unbinder;
 
     public Blank2Fragment() {

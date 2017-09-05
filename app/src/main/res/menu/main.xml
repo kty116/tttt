@@ -5,6 +5,6 @@
         android:id="@+id/login"
         android:icon="@drawable/ic_login"
         android:title="login"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 </menu>

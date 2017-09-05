@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="환급신청" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="보유예치금" />
+
+        <TextView
+            android:id="@+id/deposit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0원" />
+    </LinearLayout>
+
+    <com.thebay.tb.view.CustomLoginEditText
+        android:id="@+id/bank_name_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="은행명"
+        app:name="bank_name" />
+
+    <com.thebay.tb.view.CustomLoginEditText
+        android:id="@+id/account_number_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="계좌번호"
+        app:name="account_number" />
+
+    <com.thebay.tb.view.CustomLoginEditText
+        android:id="@+id/name_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="예금주"
+        app:name="name" />
+
+    <com.thebay.tb.view.CustomLoginEditText
+        android:id="@+id/refund_money_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="환급금액"
+        app:name="refund_money" />
+
+    <Button
+        android:id="@+id/confirm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@color/red"
+        android:text="신청" />
+
+</LinearLayout>
