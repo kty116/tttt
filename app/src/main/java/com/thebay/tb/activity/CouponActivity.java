@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,13 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.thebay.tb.R;
+import com.thebay.tb.dialog.CouponAddFragmentDialog;
 import com.thebay.tb.event.FragmentReplaceEvent;
 import com.thebay.tb.event.MessageEvent;
-import com.thebay.tb.fragment.DepositChargeListTabFragment;
-import com.thebay.tb.fragment.DepositRefundListTabFragment;
-import com.thebay.tb.fragment.DepositUseListTabFragment;
+import com.thebay.tb.fragment.CouponAvailableListTabFragment;
+import com.thebay.tb.fragment.CouponTransferListTabFragment;
+import com.thebay.tb.fragment.CouponUnavailableListTabFragment;
 import com.thebay.tb.model.InquiryListModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,92 +34,46 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class DepositActivity extends AppCompatActivity {
+public class CouponActivity extends AppCompatActivity {
 
 
-//    @BindView(R.id.recycler_view)
+    //    @BindView(R.id.recycler_view)
 //    RecyclerView mRecyclerView;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-//    @BindView(R.id.order_state_spinner)
-//    Spinner mOrderStateSpinner;
-//    @BindView(R.id.search_keyword_spinner)
-//    Spinner mSearchKeywordSpinner;
-//    @BindView(R.id.before_date)
-//    TextView mBeforeDateText;
-//    @BindView(R.id.after_date)
-//    TextView mAfterDateText;
-
-//    @OnClick({R.id.before_date, R.id.after_date})
-//    void click(View v) {
-//        switch (v.getId()) {
-//            case R.id.before_date:
-//                DatePickerDialog.OnDateSetListener dateSetListener1 = new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                        int month = monthOfYear+1;
-//                        mBeforeDateText.setText(year+"-"+month+"-"+dayOfMonth);
-//                    }
-//                };
-//                popDateDialog(dateSetListener1);
-//                //            Toast.makeText(OrderListActivity.this, ""+view.getId(), Toast.LENGTH_SHORT).show();
-//
-//                break;
-//
-//            case R.id.after_date:
-//                DatePickerDialog.OnDateSetListener dateSetListener2 = new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                        int month = monthOfYear+1;
-//                        mAfterDateText.setText(year+"-"+month+"-"+dayOfMonth);
-//                    }
-//                };
-//                popDateDialog(dateSetListener2);
-//
-//                break;
-//        }
-//    }
-
-    //    private FrameLayout toolbarLayout;
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
+    @OnClick({R.id.fab})
+    void click(View v) {
+        switch (v.getId()) {
+            case R.id.fab:
+                FragmentManager fm = getSupportFragmentManager();
+                CouponAddFragmentDialog dialogFragment = new CouponAddFragmentDialog();
+                dialogFragment.show(fm, "coupon_add");
+                break;
+        }
+}
 
     private Toolbar toolbar;
     private ArrayList<InquiryListModel> list;
-//    private String[] yourArray = new String[]{"Staff", "Student", "Your Hint"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deposit);
+        setContentView(R.layout.activity_coupon);
         ButterKnife.bind(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setTitle("예치금");
+        setTitle("쿠폰함");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setTabLayout();
-
-//        list = new ArrayList<>();
-//
-//        for (int i = 0; i < 100; i++) {
-//            int num = i + 1;
-//            list.add(new InquiryListModel("No." + num + " /", "재문의 /", "2", new Date(System.currentTimeMillis()).toString(), "입고", "제목"));
-//        }
-//
-//        InquiryListAdapter adapter = new InquiryListAdapter(this, list);
-//
-//        mRecyclerView.setAdapter(adapter);
-
-//
-//        SpinnerHintAdapter hintAdapter = new SpinnerHintAdapter(this, android.R.layout.simple_list_item_1, yourArray);
-//        mOrderStateSpinner.setAdapter(hintAdapter);
-//        // show hint
-//        mOrderStateSpinner.setSelection(hintAdapter.getCount());
-
     }
 
     @Override
@@ -128,15 +85,37 @@ public class DepositActivity extends AppCompatActivity {
     public void setTabLayout() {
 
         // Initializing the TabLayout
-        mTabLayout.addTab(mTabLayout.newTab().setText("충전내역"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("환급내역"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("사용내역"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("사용가능한 쿠폰"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("지난 쿠폰내역"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("양도 쿠폰내역"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Creating TabPagerAdapter adapter
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    mFab.show();
+                } else if (position == 2) {
+                    mFab.hide();
+                } else {
+                    mFab.hide();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         // Set TabSelectedListener
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -156,7 +135,6 @@ public class DepositActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
@@ -185,15 +163,6 @@ public class DepositActivity extends AppCompatActivity {
     public void onMessageEvent(MessageEvent event) {
         if (event instanceof FragmentReplaceEvent) {
             FragmentReplaceEvent fragmentReplaceEvent = (FragmentReplaceEvent) event;
-//            if (fragmentReplaceEvent.isToolbarHide()) {
-//                AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-//                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-//                Toast.makeText(this, "숨김", Toast.LENGTH_SHORT).show();
-//            } else {
-//                AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-//                params.setScrollFlags(0);
-//                Toast.makeText(this, "보임", Toast.LENGTH_SHORT).show();
-//            }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, fragmentReplaceEvent.getFragment()).addToBackStack("null").commit();
             setTitle(fragmentReplaceEvent.getFragmentName());
 
@@ -212,7 +181,7 @@ public class DepositActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    public void popDateDialog(DatePickerDialog.OnDateSetListener dateSetListener){
+    public void popDateDialog(DatePickerDialog.OnDateSetListener dateSetListener) {
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -223,11 +192,10 @@ public class DepositActivity extends AppCompatActivity {
             // API 24 이상일 경우 시스템 기본 테마 사용
             context = this;
         }
-        DatePickerDialog datePickerDialog = new DatePickerDialog(context,dateSetListener , year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context, dateSetListener, year, month, day);
         datePickerDialog.show();
 
     }
-
 
     public class PagerAdapter extends FragmentStatePagerAdapter {
 
@@ -245,13 +213,13 @@ public class DepositActivity extends AppCompatActivity {
             // Returning the current tabs
             switch (position) {
                 case 0:
-                    DepositChargeListTabFragment tabFragment1 = new DepositChargeListTabFragment();
+                    CouponAvailableListTabFragment tabFragment1 = new CouponAvailableListTabFragment();
                     return tabFragment1;
                 case 1:
-                    DepositRefundListTabFragment tabFragment2 = new DepositRefundListTabFragment();
+                    CouponUnavailableListTabFragment tabFragment2 = new CouponUnavailableListTabFragment();
                     return tabFragment2;
                 case 2:
-                    DepositUseListTabFragment tabFragment3 = new DepositUseListTabFragment();
+                    CouponTransferListTabFragment tabFragment3 = new CouponTransferListTabFragment();
                     return tabFragment3;
                 default:
                     return null;

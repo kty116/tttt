@@ -4,6 +4,7 @@ package com.thebay.tb.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,17 +13,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thebay.tb.R;
-import com.thebay.tb.adapter.HeaderAndFooterRecyclerViewAdapter;
-import com.thebay.tb.lib.RecyclerViewUtils;
 import com.thebay.tb.lib.TaobaoRestClient;
-import com.thebay.tb.model.DepositUseListModel;
-import com.thebay.tb.view.DepositUseHeader;
+import com.thebay.tb.model.CouponAvailableListModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,30 +33,31 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cz.msebera.android.httpclient.Header;
 
-public class DepositUseListTabFragment extends Fragment implements Serializable{
+public class CouponAvailableListTabFragment extends Fragment implements Serializable {
 //    private RecyclerView recyclerView;
 
     @BindView(R.id.parent_layout)
-    LinearLayout mParentLayout;
-
+    CoordinatorLayout mParentLayout;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-
-
-
-//    @OnClick({R.id.search_button})
+//    @BindView(R.id.coupon_add_button)
+//    FloatingActionButton mCouponAddButton;
+//
+//    @OnClick({R.id.coupon_add_button})
 //    void click(View v) {
 //        switch (v.getId()) {
-//            case R.id.search_button:
-//
+//            case R.id.coupon_add_button:
+//                FragmentManager fm = getActivity().getSupportFragmentManager();
+//                CouponAddFragmentDialog dialogFragment = new CouponAddFragmentDialog();
+//                dialogFragment.show(fm,"coupon_add");
 //                break;
 //        }
 //    }
 
     private Unbinder unbinder;
 
-    public static DepositUseListTabFragment newInstance() {
-        DepositUseListTabFragment fragment = new DepositUseListTabFragment();
+    public static CouponAvailableListTabFragment newInstance() {
+        CouponAvailableListTabFragment fragment = new CouponAvailableListTabFragment();
         return fragment;
     }
 
@@ -67,7 +65,20 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        View view = inflater.inflate(R.layout.tab_deposit_use, container, false);
+        View view = inflater.inflate(R.layout.tab_coupon_available, container, false);
+
+        //fab 설정
+//        FloatingActionButton couponAddButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+//        couponAddButton.setVisibility(View.VISIBLE);
+//        couponAddButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentManager fm = getActivity().getSupportFragmentManager();
+//                CouponAddFragmentDialog dialogFragment = new CouponAddFragmentDialog();
+//                dialogFragment.show(fm,"coupon_add");
+//            }
+//        });
+
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -77,21 +88,21 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
         super.onActivityCreated(savedInstanceState);
 
         //init data
-        ArrayList<DepositUseListModel> dataList = new ArrayList<>();
+        ArrayList<CouponAvailableListModel> dataList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            dataList.add(new DepositUseListModel("사용일", "10000", "20000원", "컨텐츠 내용", "잔액 0원"));
+            dataList.add(new CouponAvailableListModel("No", "할인쿠폰", "할인", "유효기간", "남은기간", "사용일", "상태"));
         }
 
         ListAdapter dataAdapter = new ListAdapter(getActivity());
         dataAdapter.setData(dataList);
 
-        HeaderAndFooterRecyclerViewAdapter headerAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(dataAdapter);
-        mRecyclerView.setAdapter(headerAndFooterRecyclerViewAdapter);
+//        HeaderAndFooterRecyclerViewAdapter headerAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(dataAdapter);
+        mRecyclerView.setAdapter(dataAdapter);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //add a HeaderView
-        RecyclerViewUtils.setHeaderView(mRecyclerView, new DepositUseHeader(getActivity()));
+//        RecyclerViewUtils.setHeaderView(mRecyclerView, new DepositChargeHeader(getActivity()));
 
         //add a FooterView
 //        RecyclerViewUtils.setFooterView(mRecyclerView, new DepositChargeHeader(getActivity()));
@@ -141,30 +152,32 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
     public class ListAdapter extends RecyclerView.Adapter {
 
         private LayoutInflater mLayoutInflater;
-        private ArrayList<DepositUseListModel> mDataList = new ArrayList<>();
+        private ArrayList<CouponAvailableListModel> mDataList = new ArrayList<>();
 
         public ListAdapter(Context context) {
             mLayoutInflater = LayoutInflater.from(context);
         }
 
-        public void setData(ArrayList<DepositUseListModel> list) {
+        public void setData(ArrayList<CouponAvailableListModel> list) {
             this.mDataList = list;
             notifyDataSetChanged();
         }
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(mLayoutInflater.inflate(R.layout.list_item_deposit_use, parent, false));
+            return new ViewHolder(mLayoutInflater.inflate(R.layout.list_item_coupon_available, parent, false));
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.useDateText.setText(mDataList.get(position).getUseDate());
-            viewHolder.depositText.setText(mDataList.get(position).getDeposit());
-            viewHolder.useText.setText(mDataList.get(position).getUse());
-            viewHolder.contentText.setText(mDataList.get(position).getContent());
-            viewHolder.balanceText.setText(mDataList.get(position).getBalance());
+            viewHolder.numberText.setText(mDataList.get(position).getNumber());
+            viewHolder.couponNameText.setText(mDataList.get(position).getCouponName());
+            viewHolder.discountText.setText(mDataList.get(position).getDiscount());
+            viewHolder.validityText.setText(mDataList.get(position).getValidity());
+            viewHolder.dateIssuedText.setText(mDataList.get(position).getDateIssued());
+            viewHolder.remainingPeriodText.setText(mDataList.get(position).getRemainingPeriod());
+            viewHolder.conditionText.setText(mDataList.get(position).getCondition());
         }
 
         @Override
@@ -174,20 +187,24 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
 
         private class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView useDateText;
-            private TextView depositText;
-            private TextView useText;
-            private TextView contentText;
-            private TextView balanceText;
+            private TextView numberText;
+            private TextView couponNameText;
+            private TextView discountText;
+            private TextView validityText;
+            private TextView dateIssuedText;
+            private TextView remainingPeriodText;
+            private TextView conditionText;
 
             public ViewHolder(View itemView) {
                 super(itemView);
 
-                useDateText = (TextView) itemView.findViewById(R.id.use_date_text);
-                depositText = (TextView) itemView.findViewById(R.id.deposit_text);
-                useText = (TextView) itemView.findViewById(R.id.use_text);
-                contentText = (TextView) itemView.findViewById(R.id.content_text);
-                balanceText = (TextView) itemView.findViewById(R.id.balance_text);
+                numberText = (TextView) itemView.findViewById(R.id.number_text);
+                couponNameText = (TextView) itemView.findViewById(R.id.coupon_name_text);
+                discountText = (TextView) itemView.findViewById(R.id.discount_text);
+                validityText = (TextView) itemView.findViewById(R.id.validity_text);
+                dateIssuedText = (TextView) itemView.findViewById(R.id.date_issued_text);
+                remainingPeriodText = (TextView) itemView.findViewById(R.id.remaining_period_text);
+                conditionText = (TextView) itemView.findViewById(R.id.condition_text);
 
 //                textView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -199,6 +216,5 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
             }
         }
     }
-
 
 }

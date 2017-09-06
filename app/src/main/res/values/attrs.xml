@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomView">
-        <attr name="symbol" format="reference|integer"/>
-        <attr name="key" format="reference|string"/>
-        <attr name="nullvalidata" format="reference|boolean"/>
-    </declare-styleable>
 
     <declare-styleable name="CustomLoginEditText">
         <attr name="null_check" format="boolean"/>
         <attr name="name" format="string"/>
         <attr name="hint" format="string"/>
         <attr name="inputType" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomEditText">
+        <attr name="key" format="string"/>
     </declare-styleable>
 
 

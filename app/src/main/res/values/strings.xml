@@ -2,6 +2,11 @@
     <string name="app_name">the Bay</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
+    
+    <string name="coupon_notice">1. 쿠폰번호 입력 후 "쿠폰등록" 버튼을 눌러 등록이 가능한 쿠폰인지 확인합니다.
+2. "쿠폰등록" 버튼을 클릭하면 바로 사용가능한 쿠폰으로 등록됩니다.
+3. 더베이 할인쿠폰에는 배송요금 할인, 정밀검수쿠폰, 통관수수료쿠폰 등 다양한 종류가 있습니다.
+4. 1회 등록된 쿠폰은 재동륵이 불가능하며, 양도가 가능한 쿠폰의 경우 쿠폰 등록 후 타인에게 양도가 가능합니다.</string>
 
     <string name="provision_text">더베이 이용약관
 

@@ -44,11 +44,11 @@ public class DefaultCustomView extends View {
         img = (ImageView) findViewById(R.id.img);
         editText = (EditText) findViewById(R.id.text);
 
-        typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomView);
+        typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomEditText);
     }
 
     public String getKeyAndValue(){
-        return typedArray.getString(R.styleable.CustomView_key);
+        return typedArray.getString(R.styleable.CustomEditText_key);
     }
 //
 //    public boolean checkValidate(){

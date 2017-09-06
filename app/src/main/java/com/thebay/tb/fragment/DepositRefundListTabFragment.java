@@ -21,7 +21,7 @@ import com.thebay.tb.R;
 import com.thebay.tb.adapter.HeaderAndFooterRecyclerViewAdapter;
 import com.thebay.tb.lib.RecyclerViewUtils;
 import com.thebay.tb.lib.TaobaoRestClient;
-import com.thebay.tb.model.DepositChargeListModel;
+import com.thebay.tb.model.DepositRefundListModel;
 import com.thebay.tb.view.DepositRefundHeader;
 
 import org.json.JSONArray;
@@ -75,12 +75,13 @@ public class DepositRefundListTabFragment extends Fragment implements Serializab
         super.onActivityCreated(savedInstanceState);
 
         //init data
-        ArrayList<DepositChargeListModel> dataList = new ArrayList<>();
+        ArrayList<DepositRefundListModel> dataList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            dataList.add(new DepositChargeListModel("2017-09-04", "2017-09-04", "김경애", "20000원", "신한은행 110-436-981683 (김성훈(더베이))", "취소"));
+
+            dataList.add(new DepositRefundListModel("2017-09-04", "신한", "김경애", "110-436-981683", "20000원", "취소"));
         }
 
-        DepositRefundListAdapter dataAdapter = new DepositRefundListAdapter(getActivity());
+        ListAdapter dataAdapter = new ListAdapter(getActivity());
         dataAdapter.setData(dataList);
 
         HeaderAndFooterRecyclerViewAdapter headerAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(dataAdapter);
@@ -136,33 +137,33 @@ public class DepositRefundListTabFragment extends Fragment implements Serializab
         unbinder.unbind();
     }
 
-    public class DepositRefundListAdapter extends RecyclerView.Adapter {
+    public class ListAdapter extends RecyclerView.Adapter {
 
         private LayoutInflater mLayoutInflater;
-        private ArrayList<DepositChargeListModel> mDataList = new ArrayList<>();
+        private ArrayList<DepositRefundListModel> mDataList = new ArrayList<>();
 
-        public DepositRefundListAdapter(Context context) {
+        public ListAdapter(Context context) {
             mLayoutInflater = LayoutInflater.from(context);
         }
 
-        public void setData(ArrayList<DepositChargeListModel> list) {
+        public void setData(ArrayList<DepositRefundListModel> list) {
             this.mDataList = list;
             notifyDataSetChanged();
         }
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(mLayoutInflater.inflate(R.layout.list_item_deposit_charge, parent, false));
+            return new ViewHolder(mLayoutInflater.inflate(R.layout.list_item_deposit_refund, parent, false));
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.requestDateText.setText(mDataList.get(position).getRequestDate());
-            viewHolder.depositDateText.setText(mDataList.get(position).getDepositDate());
+            viewHolder.bankNameText.setText(mDataList.get(position).getBankName());
             viewHolder.nameText.setText(mDataList.get(position).getName());
-            viewHolder.moneyText.setText(mDataList.get(position).getMoney());
             viewHolder.accountNumberText.setText(mDataList.get(position).getAccountNumber());
+            viewHolder.refundMoneyText.setText(mDataList.get(position).getRefundMoney());
             viewHolder.stateText.setText(mDataList.get(position).getState());
         }
 
@@ -174,20 +175,20 @@ public class DepositRefundListTabFragment extends Fragment implements Serializab
         private class ViewHolder extends RecyclerView.ViewHolder {
 
             private TextView requestDateText;
-            private TextView depositDateText;
+            private TextView bankNameText;
             private TextView nameText;
-            private TextView moneyText;
             private TextView accountNumberText;
+            private TextView refundMoneyText;
             private TextView stateText;
 
             public ViewHolder(View itemView) {
                 super(itemView);
 
                 requestDateText = (TextView) itemView.findViewById(R.id.request_date_text);
-                depositDateText = (TextView) itemView.findViewById(R.id.deposit_date_text);
+                bankNameText = (TextView) itemView.findViewById(R.id.bank_name_text);
                 nameText = (TextView) itemView.findViewById(R.id.name_text);
-                moneyText = (TextView) itemView.findViewById(R.id.money_text);
-                accountNumberText = (TextView) itemView.findViewById(R.id.account_number);
+                accountNumberText = (TextView) itemView.findViewById(R.id.account_number_text);
+                refundMoneyText = (TextView) itemView.findViewById(R.id.refund_money_text);
                 stateText = (TextView) itemView.findViewById(R.id.state_text);
 
 //                textView.setOnClickListener(new View.OnClickListener() {

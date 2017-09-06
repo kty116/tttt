@@ -24,6 +24,7 @@ import com.thebay.tb.fragment.LoginFragment;
 import com.thebay.tb.fragment.MainFragment;
 import com.thebay.tb.fragment.MessageFragment;
 import com.thebay.tb.fragment.NoticeFragment;
+import com.thebay.tb.fragment.PointFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     void click(View v) {
         switch (v.getId()) {
             case R.id.login_button:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, LoginFragment.newInstance()).commit();
+                CommonLib.subActivityIntent(this,LoginFragment.newInstance());
                 mDrawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.deposit_button:
@@ -62,9 +63,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mDrawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy_count_button:
+                startActivity(new Intent(this, SettlementActivity.class));
                 mDrawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.coupon_button:
+                startActivity(new Intent(this, CouponActivity.class));
                 mDrawer.closeDrawer(GravityCompat.START);
                 break;
 
@@ -173,8 +176,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
 
-            case R.id.coupon:
-                //쿠폰함
+            case R.id.point:
+                //포인트
+                CommonLib.subActivityIntent(this, PointFragment.newInstance());
 
                 break;
 

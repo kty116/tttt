@@ -21,8 +21,8 @@ import com.thebay.tb.R;
 import com.thebay.tb.adapter.HeaderAndFooterRecyclerViewAdapter;
 import com.thebay.tb.lib.RecyclerViewUtils;
 import com.thebay.tb.lib.TaobaoRestClient;
-import com.thebay.tb.model.DepositUseListModel;
-import com.thebay.tb.view.DepositUseHeader;
+import com.thebay.tb.model.PointListModel;
+import com.thebay.tb.view.PointHeader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cz.msebera.android.httpclient.Header;
 
-public class DepositUseListTabFragment extends Fragment implements Serializable{
+public class PointFragment extends Fragment implements Serializable {
 //    private RecyclerView recyclerView;
 
     @BindView(R.id.parent_layout)
@@ -44,8 +44,6 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-
-
 
 //    @OnClick({R.id.search_button})
 //    void click(View v) {
@@ -58,8 +56,8 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
 
     private Unbinder unbinder;
 
-    public static DepositUseListTabFragment newInstance() {
-        DepositUseListTabFragment fragment = new DepositUseListTabFragment();
+    public static PointFragment newInstance() {
+        PointFragment fragment = new PointFragment();
         return fragment;
     }
 
@@ -67,7 +65,8 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        View view = inflater.inflate(R.layout.tab_deposit_use, container, false);
+        getActivity().setTitle("포인트");
+        View view = inflater.inflate(R.layout.fragment_point, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -75,14 +74,13 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         //init data
-        ArrayList<DepositUseListModel> dataList = new ArrayList<>();
+        ArrayList<PointListModel> dataList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            dataList.add(new DepositUseListModel("사용일", "10000", "20000원", "컨텐츠 내용", "잔액 0원"));
+            dataList.add(new PointListModel("구분", "+1000", "2017-09-05"));
         }
 
-        ListAdapter dataAdapter = new ListAdapter(getActivity());
+        PointAdapter dataAdapter = new PointAdapter(getActivity());
         dataAdapter.setData(dataList);
 
         HeaderAndFooterRecyclerViewAdapter headerAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(dataAdapter);
@@ -91,7 +89,7 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //add a HeaderView
-        RecyclerViewUtils.setHeaderView(mRecyclerView, new DepositUseHeader(getActivity()));
+        RecyclerViewUtils.setHeaderView(mRecyclerView, new PointHeader(getActivity()));
 
         //add a FooterView
 //        RecyclerViewUtils.setFooterView(mRecyclerView, new DepositChargeHeader(getActivity()));
@@ -138,33 +136,31 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
         unbinder.unbind();
     }
 
-    public class ListAdapter extends RecyclerView.Adapter {
+    public class PointAdapter extends RecyclerView.Adapter {
 
         private LayoutInflater mLayoutInflater;
-        private ArrayList<DepositUseListModel> mDataList = new ArrayList<>();
+        private ArrayList<PointListModel> mDataList = new ArrayList<>();
 
-        public ListAdapter(Context context) {
+        public PointAdapter(Context context) {
             mLayoutInflater = LayoutInflater.from(context);
         }
 
-        public void setData(ArrayList<DepositUseListModel> list) {
+        public void setData(ArrayList<PointListModel> list) {
             this.mDataList = list;
             notifyDataSetChanged();
         }
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(mLayoutInflater.inflate(R.layout.list_item_deposit_use, parent, false));
+            return new ViewHolder(mLayoutInflater.inflate(R.layout.list_item_point, parent, false));
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.useDateText.setText(mDataList.get(position).getUseDate());
-            viewHolder.depositText.setText(mDataList.get(position).getDeposit());
-            viewHolder.useText.setText(mDataList.get(position).getUse());
-            viewHolder.contentText.setText(mDataList.get(position).getContent());
-            viewHolder.balanceText.setText(mDataList.get(position).getBalance());
+            viewHolder.sectionText.setText(mDataList.get(position).getSection());
+            viewHolder.pointText.setText(mDataList.get(position).getPoint());
+            viewHolder.dateText.setText(mDataList.get(position).getDate());
         }
 
         @Override
@@ -174,20 +170,16 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
 
         private class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView useDateText;
-            private TextView depositText;
-            private TextView useText;
-            private TextView contentText;
-            private TextView balanceText;
+            private TextView sectionText;
+            private TextView pointText;
+            private TextView dateText;
 
             public ViewHolder(View itemView) {
                 super(itemView);
 
-                useDateText = (TextView) itemView.findViewById(R.id.use_date_text);
-                depositText = (TextView) itemView.findViewById(R.id.deposit_text);
-                useText = (TextView) itemView.findViewById(R.id.use_text);
-                contentText = (TextView) itemView.findViewById(R.id.content_text);
-                balanceText = (TextView) itemView.findViewById(R.id.balance_text);
+                sectionText = (TextView) itemView.findViewById(R.id.section_text);
+                pointText = (TextView) itemView.findViewById(R.id.point_text);
+                dateText = (TextView) itemView.findViewById(R.id.date_text);
 
 //                textView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -199,6 +191,4 @@ public class DepositUseListTabFragment extends Fragment implements Serializable{
             }
         }
     }
-
-
 }

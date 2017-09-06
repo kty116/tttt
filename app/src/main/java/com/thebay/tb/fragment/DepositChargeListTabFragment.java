@@ -80,7 +80,7 @@ public class DepositChargeListTabFragment extends Fragment implements Serializab
             dataList.add(new DepositChargeListModel("2017-09-04", "2017-09-04", "김경애", "20000원", "신한은행 110-436-981683 (김성훈(더베이))", "취소"));
         }
 
-        DepositChargeListAdapter dataAdapter = new DepositChargeListAdapter(getActivity());
+        ListAdapter dataAdapter = new ListAdapter(getActivity());
         dataAdapter.setData(dataList);
 
         HeaderAndFooterRecyclerViewAdapter headerAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(dataAdapter);
@@ -136,12 +136,12 @@ public class DepositChargeListTabFragment extends Fragment implements Serializab
         unbinder.unbind();
     }
 
-    public class DepositChargeListAdapter extends RecyclerView.Adapter {
+    public class ListAdapter extends RecyclerView.Adapter {
 
         private LayoutInflater mLayoutInflater;
         private ArrayList<DepositChargeListModel> mDataList = new ArrayList<>();
 
-        public DepositChargeListAdapter(Context context) {
+        public ListAdapter(Context context) {
             mLayoutInflater = LayoutInflater.from(context);
         }
 
